@@ -1,0 +1,134 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, DayZ Animal Agent">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"init",0,250,-150.000000,75.000000,-50.000000,125.000000,0.000000,"init"};
+item1[] = {"",7,210,-104.000000,296.000000,-96.000000,304.000000,0.000000,""};
+item2[] = {"End",1,250,-150.000000,450.000000,-50.000000,500.000000,0.000000,"End"};
+item3[] = {"Not_Alive",4,218,-225.000000,325.000000,-125.000000,375.000000,4.000000,"Not" \n "Alive"};
+item4[] = {"Loiter",2,250,-150.000000,225.000000,-50.000000,275.000000,0.000000,"Loiter"};
+item5[] = {"In_Position",4,218,-275.000000,225.000000,-175.000000,275.000000,2.000000,"In Position"};
+item6[] = {"True",8,218,-150.000000,150.000000,-50.000000,200.000000,0.000000,"True"};
+item7[] = {"",7,210,-29.000000,296.000000,-21.000000,304.000000,0.000000,""};
+item8[] = {"",7,210,-179.000000,296.000000,-171.000000,304.000000,0.000000,""};
+item9[] = {"",7,210,-29.000000,396.000000,-20.999998,404.000000,0.000000,""};
+item10[] = {"tamed",4,218,-75.000000,325.000000,25.000000,375.000000,3.000000,"tamed"};
+item11[] = {"",7,210,-179.000000,396.000000,-171.000000,404.000000,0.000000,""};
+item12[] = {"",7,210,-104.000000,396.000000,-96.000000,404.000000,0.000000,""};
+link0[] = {0,6};
+link1[] = {1,7};
+link2[] = {1,8};
+link3[] = {3,11};
+link4[] = {4,1};
+link5[] = {4,5};
+link6[] = {5,4};
+link7[] = {6,4};
+link8[] = {7,10};
+link9[] = {8,3};
+link10[] = {9,12};
+link11[] = {10,9};
+link12[] = {11,12};
+link13[] = {12,2};
+globals[] = {25.000000,1,0,0,0,640,480,1,95,6316128,1,-569.857849,464.928131,630.805115,-18.612307,1450,910,1};
+window[] = {2,-1,-1,-1,-1,1157,156,1364,156,3,1468};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "DayZ Animal Agent";
+  class States
+  {
+    /*%FSM<STATE "init">*/
+    class init
+    {
+      name = "init";
+      init = /*%FSM<STATEINIT""">*/"_pos = _this select 0;" \n
+       "_agent = _this select 1;" \n
+       "" \n
+       "_isSomeone = true;" \n
+       "_timeA = time;" \n
+       "_isTamed = false;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "True">*/
+        class True
+        {
+          priority = 0.000000;
+          to="Loiter";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "End">*/
+    class End
+    {
+      name = "End";
+      init = /*%FSM<STATEINIT""">*/"if (!_isTamed) then {" \n
+       "	if (!_isSomeone) then {" \n
+       "		deleteVehicle _agent;" \n
+       "	}  else {" \n
+       "		dayz_bodyMonitor set [count dayz_bodyMonitor,_agent];" \n
+       "	};" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Loiter">*/
+    class Loiter
+    {
+      name = "Loiter";
+      init = /*%FSM<STATEINIT""">*/"_isAlive = alive _agent;" \n
+       "" \n
+       "//_agent forceSpeed 2;" \n
+       "_entityTime = time;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Not_Alive">*/
+        class Not_Alive
+        {
+          priority = 4.000000;
+          to="End";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!_isAlive"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_timeA = time;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "tamed">*/
+        class tamed
+        {
+          priority = 3.000000;
+          to="End";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_isTamed"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "In_Position">*/
+        class In_Position
+        {
+          priority = 2.000000;
+          to="Loiter";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_agent distance _pos < 3"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_pos = [_pos,10,90,4,0,5,0] call BIS_fnc_findSafePos;" \n
+           "_agent moveTo _pos;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="init";
+  finalStates[] =
+  {
+    "End",
+  };
+};
+/*%FSM</COMPILE>*/

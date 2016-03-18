@@ -1,0 +1,354 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, headlesClient.fsm">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"init",0,250,-75.000000,-225.000000,25.000000,-175.000000,0.000000,"init"};
+item1[] = {"Ready",8,218,-75.000000,-150.000000,25.000000,-100.000000,0.000000,"Ready"};
+item2[] = {"Split",2,250,-75.000000,-75.000000,25.000000,-25.000000,0.000000,"Split"};
+item3[] = {"Zombies",4,218,-75.000000,25.000000,25.000000,75.000000,3.000000,"Zombies"};
+item4[] = {"Loot",4,218,-200.000000,25.000000,-100.000000,75.000000,2.000000,"Loot"};
+item5[] = {"Animals",4,218,50.000000,25.000000,150.000000,75.000000,4.000000,"Animals"};
+item6[] = {"Spawn_Zombies",2,250,-75.000000,125.000000,25.000000,175.000000,0.000000,"Spawn Zombies"};
+item7[] = {"Spawn_Animals",2,250,50.000000,125.000000,150.000000,175.000000,0.000000,"Spawn Animals"};
+item8[] = {"Spawn_Loot",2,250,-200.000000,125.000000,-100.000000,175.000000,0.000000,"Spawn Loot"};
+item9[] = {"Repeat",8,218,-200.000000,225.000000,-100.000000,275.000000,0.000000,"Repeat"};
+item10[] = {"Repeat",8,218,-75.000000,225.000000,25.000000,275.000000,0.000000,"Repeat"};
+item11[] = {"Repeat",8,218,50.000000,225.000000,150.000000,275.000000,0.000000,"Repeat"};
+item12[] = {"Wild",4,218,-325.000000,25.000000,-225.000000,75.000000,1.000000,"Wild"};
+item13[] = {"Spawn_Wild",2,4346,-325.000000,125.000000,-225.000000,175.000000,0.000000,"Spawn Wild"};
+item14[] = {"Repeat",8,218,-325.000000,225.000000,-225.000000,275.000000,0.000000,"Repeat"};
+item15[] = {"Custom",4,218,175.000000,25.000000,275.000000,75.000000,5.000000,"Custom"};
+item16[] = {"Spawn_Custom",2,250,175.000000,125.000000,275.000000,175.000000,0.000000,"Spawn Custom"};
+item17[] = {"Repeat",8,218,175.000000,225.000000,275.000000,275.000000,0.000000,"Repeat"};
+item18[] = {"",7,210,-279.000000,296.000000,-271.000000,304.000000,0.000000,""};
+item19[] = {"",7,210,-154.000000,296.000000,-146.000000,304.000000,0.000000,""};
+item20[] = {"",7,210,-29.000000,296.000000,-21.000000,304.000000,0.000000,""};
+item21[] = {"",7,210,96.000008,296.000000,104.000000,304.000000,0.000000,""};
+item22[] = {"",7,210,221.000000,296.000000,228.999985,304.000000,0.000000,""};
+item23[] = {"",7,210,-29.000002,346.000000,-20.999998,354.000000,0.000000,""};
+item24[] = {"",7,210,-354.000000,346.000000,-346.000000,354.000000,0.000000,""};
+item25[] = {"",7,210,-354.000000,-54.000000,-346.000000,-46.000000,0.000000,""};
+link0[] = {0,1};
+link1[] = {1,2};
+link2[] = {2,3};
+link3[] = {2,4};
+link4[] = {2,5};
+link5[] = {2,12};
+link6[] = {2,15};
+link7[] = {3,6};
+link8[] = {4,8};
+link9[] = {5,7};
+link10[] = {6,10};
+link11[] = {7,11};
+link12[] = {8,9};
+link13[] = {9,19};
+link14[] = {10,20};
+link15[] = {11,21};
+link16[] = {12,13};
+link17[] = {13,14};
+link18[] = {14,18};
+link19[] = {15,16};
+link20[] = {16,17};
+link21[] = {17,22};
+link22[] = {18,19};
+link23[] = {19,20};
+link24[] = {20,23};
+link25[] = {21,20};
+link26[] = {22,21};
+link27[] = {23,24};
+link28[] = {24,25};
+link29[] = {25,2};
+globals[] = {25.000000,1,0,0,0,640,480,1,103,6316128,1,-485.391541,193.809265,554.761475,-159.773636,865,910,1};
+window[] = {2,-1,-1,-1,-1,785,26,1466,26,3,883};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "headlesClient.fsm";
+  class States
+  {
+    /*%FSM<STATE "init">*/
+    class init
+    {
+      name = "init";
+      init = /*%FSM<STATEINIT""">*/"_start = _this select 0;" \n
+       "" \n
+       "_lootTimer = 0;" \n
+       "_buildingZombieTimer = 0;" \n
+       "_wildZombieTimer = 0;" \n
+       "_animalTimer = 0;" \n
+       "_customTimer = 0;" \n
+       "_fsmVar = -1;" \n
+       "_exception = """";" \n
+       "" \n
+       "_wildStarted = false;" \n
+       "_lootStarted = false;" \n
+       "_zombieStarted = false;" \n
+       "_animalStarted = false;" \n
+       "_customStarted = false;" \n
+       "" \n
+       "if (isNil ""mm_zombieWait"") then {" \n
+       "	mm_zombieWait = 60;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_animalWait"") then {" \n
+       "	mm_animalWait = 300;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_lootWait"") then {" \n
+       "	mm_lootWait = 120;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_customWait"") then {" \n
+       "	mm_customWait = 999999;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_diagFps"") then {" \n
+       "	mm_diagFps = 20;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_useCoreCustom"") then {" \n
+       "	mm_useCoreCustom = false;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_useWildZSpawn"") then {" \n
+       "	mm_useWildZSpawn = true;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_useLootSpawn"") then {" \n
+       "	mm_useLootSpawn = true;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_useBuildingZSpawn"") then {" \n
+       "	mm_useBuildingZSpawn = true;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_useAnimalSpawn"") then {" \n
+       "	mm_useAnimalSpawn = true;" \n
+       "};" \n
+       "" \n
+       "if (isNil ""mm_coreCustomCondition"") then {" \n
+       "	mm_coreCustomCondition = """";" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Ready">*/
+        class Ready
+        {
+          priority = 0.000000;
+          to="Split";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Split">*/
+    class Split
+    {
+      name = "Split";
+      init = /*%FSM<STATEINIT""">*/"true"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Custom">*/
+        class Custom
+        {
+          priority = 5.000000;
+          to="Spawn_Custom";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"mm_useCoreCustom && ([] call compile mm_coreCustomCondition) && (diag_tickTime - _customTimer) > mm_customWait"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Animals">*/
+        class Animals
+        {
+          priority = 4.000000;
+          to="Spawn_Animals";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"mm_useAnimalSpawn && (diag_tickTime - _animalTimer) > mm_animalWait || !mm_initialRunA"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"mm_initialRunA = true;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Zombies">*/
+        class Zombies
+        {
+          priority = 3.000000;
+          to="Spawn_Zombies";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"mm_useBuildingZSpawn && (diag_tickTime - _buildingZombieTimer) > mm_buildingWait || !mm_initialRunZ"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Loot">*/
+        class Loot
+        {
+          priority = 2.000000;
+          to="Spawn_Loot";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"mm_useLootSpawn && (diag_tickTime - _lootTimer) > mm_lootWait || !mm_initialRunL"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"mm_initialRunL = true;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Wild">*/
+        class Wild
+        {
+          priority = 1.000000;
+          to="Spawn_Wild";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"mm_useWildZSpawn && (diag_tickTime - _wildZombieTimer) > mm_zombieWait || !mm_initialRunW"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Spawn_Zombies">*/
+    class Spawn_Zombies
+    {
+      name = "Spawn_Zombies";
+      init = /*%FSM<STATEINIT""">*/"diag_log format [""[%1] - Spawn Building Zombies"",time];" \n
+       "" \n
+       "if (mm_useThreads) then {" \n
+       "	[] spawn building_spawnZombies;" \n
+       "	mm_initialRunZ = true;" \n
+       "} else {" \n
+       "	[] call building_spawnZombies;" \n
+       "};" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Repeat">*/
+        class Repeat
+        {
+          priority = 0.000000;
+          to="Split";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"dayz_currentGlobalZombies = count entities ""zZombie_Base"";" \n
+           "_buildingZombieTimer = diag_tickTime;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Spawn_Animals">*/
+    class Spawn_Animals
+    {
+      name = "Spawn_Animals";
+      init = /*%FSM<STATEINIT""">*/"diag_log format [""[%1] - Spawn Wild Animals"",time];" \n
+       "" \n
+       "if (mm_useThreads) then {" \n
+       "	[] spawn wild_spawnAnimals;" \n
+       "} else {" \n
+       "	[] call wild_spawnAnimals;" \n
+       "};" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Repeat">*/
+        class Repeat
+        {
+          priority = 0.000000;
+          to="Split";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"mm_currentGlobalAnimals = count entities ""CAAnimalBase"";" \n
+           "_animalTimer = diag_tickTime;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Spawn_Loot">*/
+    class Spawn_Loot
+    {
+      name = "Spawn_Loot";
+      init = /*%FSM<STATEINIT""">*/"diag_log format [""[%1] - Spawn Loot"",time];" \n
+       "" \n
+       "if (mm_useThreads) then {" \n
+       "	[] spawn mm_buildingLoot;" \n
+       "} else {" \n
+       "	[] call mm_buildingLoot;" \n
+       "};" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Repeat">*/
+        class Repeat
+        {
+          priority = 0.000000;
+          to="Split";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_lootTimer = diag_tickTime;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Spawn_Wild">*/
+    class Spawn_Wild
+    {
+      name = "Spawn_Wild";
+      init = /*%FSM<STATEINIT""">*/"diag_log format [""[%1] - Spawn Wild Zombies"",time];" \n
+       "" \n
+       "if (mm_useThreads) then {" \n
+       "	[] spawn wild_spawnZombies;" \n
+       "	mm_initialRunW = true;" \n
+       "} else {" \n
+       "	[] call wild_spawnZombies;" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Repeat">*/
+        class Repeat
+        {
+          priority = 0.000000;
+          to="Split";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"dayz_currentGlobalZombies = count entities ""zZombie_Base"";" \n
+           "_wildZombieTimer = diag_tickTime;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Spawn_Custom">*/
+    class Spawn_Custom
+    {
+      name = "Spawn_Custom";
+      init = /*%FSM<STATEINIT""">*/"[] call mm_coreCustomState;" \n
+       "diag_log format [""[%1] - Spawn custom"",time];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Repeat">*/
+        class Repeat
+        {
+          priority = 0.000000;
+          to="Split";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_animalTimer = _customTimer;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="init";
+  finalStates[] =
+  {
+  };
+};
+/*%FSM</COMPILE>*/
